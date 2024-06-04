@@ -79,7 +79,7 @@ namespace CyclingAPI.Services
         {
             if (trip.Duration.TotalHours > 0)
             {
-                trip.AvarageSpeed = trip.Distance / trip.Duration.TotalHours;
+                trip.AvarageSpeed = Math.Round(trip.Distance / trip.Duration.TotalHours,1);
             }
             else
             {

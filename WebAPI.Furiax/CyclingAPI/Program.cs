@@ -42,4 +42,5 @@ app.Run();
  * added method to service page to calculate average speed
  * registered service to program.cs
  * created the controller
+ * run the program and tested the api with postman
  */

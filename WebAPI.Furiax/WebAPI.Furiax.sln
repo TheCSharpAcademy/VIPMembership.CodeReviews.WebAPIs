@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CyclingAPI", "CyclingAPI\CyclingAPI.csproj", "{690A6D2B-1091-4238-9FE2-4D109C74934D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{690A6D2B-1091-4238-9FE2-4D109C74934D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{690A6D2B-1091-4238-9FE2-4D109C74934D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{690A6D2B-1091-4238-9FE2-4D109C74934D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{690A6D2B-1091-4238-9FE2-4D109C74934D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DF234E71-238C-49E2-BA6C-622C8CC1822A}
+	EndGlobalSection
+EndGlobal

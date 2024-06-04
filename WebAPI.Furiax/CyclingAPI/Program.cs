@@ -33,4 +33,7 @@ app.Run();
  * registered context to program.cs
  * created model
  * added dbset in context file
+ * created the database with add-migration and update-database command
+ * just realized distance has to be double, so changed and added new migration and update db
+ * 
  */

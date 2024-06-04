@@ -31,5 +31,6 @@ app.Run();
  * created context file
  * added connectionstring to appsettings.json
  * registered context to program.cs
- * 
+ * created model
+ * added dbset in context file
  */

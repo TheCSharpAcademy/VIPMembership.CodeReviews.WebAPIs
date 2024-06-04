@@ -1,4 +1,5 @@
 using CyclingAPI.Data;
+using CyclingAPI.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<CyclingDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<ICyclingService, CyclingService>();
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
@@ -35,5 +37,8 @@ app.Run();
  * added dbset in context file
  * created the database with add-migration and update-database command
  * just realized distance has to be double, so changed and added new migration and update db
- * 
+ * created interface for service
+ * created service page
+ * added method to service page to calculate average speed
+ * registered service to program.cs
  */

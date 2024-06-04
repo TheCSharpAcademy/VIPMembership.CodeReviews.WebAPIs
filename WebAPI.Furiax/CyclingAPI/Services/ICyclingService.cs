@@ -7,7 +7,7 @@ namespace CyclingAPI.Services
         public List<CyclingTrip> GetAllCyclingTrips();
         public CyclingTrip? GetCyclingTripById(int id);
         public CyclingTrip AddCyclingTrip(CyclingTrip trip);
-        public CyclingTrip EditCyclingTrip(int id, CyclingTrip updatedTrip);
+        public CyclingTrip? EditCyclingTrip(int id, CyclingTrip updatedTrip);
         public string? DeleteCyclingTrip(int id);
     }
 }

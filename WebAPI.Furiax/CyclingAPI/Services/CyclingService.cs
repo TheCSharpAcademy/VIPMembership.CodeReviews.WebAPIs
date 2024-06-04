@@ -13,6 +13,7 @@ namespace CyclingAPI.Services
         }
         public CyclingTrip AddCyclingTrip(CyclingTrip trip)
         {
+            CalculateAverageSpeed(trip);
             var newTrip = _context.CyclingTrips.Add(trip);
             _context.SaveChanges();
 
@@ -23,7 +24,7 @@ namespace CyclingAPI.Services
         {
             CyclingTrip? trip = _context.CyclingTrips.Find(id);
 
-            if(trip is null)
+            if (trip is null)
             {
                 return null;
             }
@@ -37,7 +38,7 @@ namespace CyclingAPI.Services
         {
             CyclingTrip? tripData = _context.CyclingTrips.Find(id);
 
-            if (tripData is null) 
+            if (tripData is null)
             {
                 return null;
             }
@@ -48,8 +49,10 @@ namespace CyclingAPI.Services
             tripData.EndLocation = updatedTrip.EndLocation;
             tripData.Distance = updatedTrip.Distance;
             tripData.Duration = updatedTrip.Duration;
-            tripData.AvarageSpeed = updatedTrip.AvarageSpeed;
+
             tripData.AltitudeMeters = updatedTrip.AltitudeMeters;
+
+            CalculateAverageSpeed(tripData);
 
             _context.SaveChanges();
 
@@ -70,6 +73,18 @@ namespace CyclingAPI.Services
                 return null;
             }
             return result;
+        }
+
+        private void CalculateAverageSpeed(CyclingTrip trip)
+        {
+            if (trip.Duration.TotalHours > 0)
+            {
+                trip.AvarageSpeed = trip.Distance / trip.Duration.TotalHours;
+            }
+            else
+            {
+                trip.AvarageSpeed = 0;
+            }
         }
     }
 }

@@ -49,7 +49,6 @@ namespace CyclingAPI.Services
             tripData.EndLocation = updatedTrip.EndLocation;
             tripData.Distance = updatedTrip.Distance;
             tripData.Duration = updatedTrip.Duration;
-
             tripData.AltitudeMeters = updatedTrip.AltitudeMeters;
 
             CalculateAverageSpeed(tripData);
@@ -77,13 +76,13 @@ namespace CyclingAPI.Services
 
         private void CalculateAverageSpeed(CyclingTrip trip)
         {
-            if (trip.Duration.TotalHours > 0)
+            if (trip.Duration.TotalHours > 0 && trip.Distance > 0)
             {
-                trip.AvarageSpeed = Math.Round(trip.Distance / trip.Duration.TotalHours,1);
+                trip.AverageSpeed = Math.Round(trip.Distance / trip.Duration.TotalHours,1);
             }
             else
             {
-                trip.AvarageSpeed = 0;
+                trip.AverageSpeed = 0;
             }
         }
     }

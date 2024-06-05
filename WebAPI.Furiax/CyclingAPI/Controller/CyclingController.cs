@@ -58,6 +58,5 @@ namespace CyclingAPI.Controller
             }
             return Ok(result);
         }
-
     }
 }

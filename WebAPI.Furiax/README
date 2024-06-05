@@ -47,7 +47,7 @@ Inside this Collection I created 5 requests for each CRUD method:
             "duration": "00:30:00",
             "altitudeMeters": 15
         }
-        In the return value we see that the "averageSpeed" field is automaticly calculated by our method and holds 20 as value in this example.
+        In the return value we see that the "averageSpeed" field is automatically calculated by our method and holds 20 as value in this example.
 - PUT EditTrip: this one calls https://localhost:7012/api/Cycling/1 where 1 is the id of the record.
     With this Body Raw JSON data:
       {
@@ -64,5 +64,12 @@ Inside this Collection I created 5 requests for each CRUD method:
 
 Seems like everything works like a charm from first try :)
 
+HOW TO USE:
+-----------
 
-
+This API holds 5 requests:
+  GET request that returns a list of all records in the database
+  GET {id} request that returns the record which match the id or returns a NotFound if the record doesn't exists
+  POST request, you need to provide data for the following fields: "date", "startingLocation", "endLocation", "distance", "duration" and "altitudeMeters". The API will automatically add a value for "Id" and calculate the value for "averageSpeed" so these fields should NOT be filled in.
+  PUT{id} request, here you need to provide a valid record id and an update of the following fields: "date", "startingLocation", "endLocation", "distance", "duration" and "altitudeMeters". Here too the "averageSpeed" will be calculated and automatically assigned so no need to change its value.
+  DELETE(id} request: this one deletes the record that matches the id and returns a string with a success message or returns a NotFound when the record doesn't exists.

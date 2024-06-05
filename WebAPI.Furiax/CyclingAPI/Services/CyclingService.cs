@@ -1,89 +1,88 @@
 ﻿using CyclingAPI.Data;
 using CyclingAPI.Models;
 
-namespace CyclingAPI.Services
+namespace CyclingAPI.Services;
+
+public class CyclingService : ICyclingService
 {
-    public class CyclingService : ICyclingService
+    private readonly CyclingDbContext _context;
+
+    public CyclingService(CyclingDbContext context)
     {
-        private readonly CyclingDbContext _context;
+        _context = context;
+    }
+    public CyclingTrip AddCyclingTrip(CyclingTrip trip)
+    {
+        CalculateAverageSpeed(trip);
+        var newTrip = _context.CyclingTrips.Add(trip);
+        _context.SaveChanges();
 
-        public CyclingService(CyclingDbContext context)
+        return newTrip.Entity;
+    }
+
+    public string? DeleteCyclingTrip(int id)
+    {
+        CyclingTrip? trip = _context.CyclingTrips.Find(id);
+
+        if (trip is null)
         {
-            _context = context;
-        }
-        public CyclingTrip AddCyclingTrip(CyclingTrip trip)
-        {
-            CalculateAverageSpeed(trip);
-            var newTrip = _context.CyclingTrips.Add(trip);
-            _context.SaveChanges();
-
-            return newTrip.Entity;
-        }
-
-        public string? DeleteCyclingTrip(int id)
-        {
-            CyclingTrip? trip = _context.CyclingTrips.Find(id);
-
-            if (trip is null)
-            {
-                return null;
-            }
-
-            _context.CyclingTrips.Remove(trip);
-            _context.SaveChanges();
-            return $"The trip with id number {id} was successfully deleted.";
+            return null;
         }
 
-        public CyclingTrip EditCyclingTrip(int id, CyclingTrip updatedTrip)
+        _context.CyclingTrips.Remove(trip);
+        _context.SaveChanges();
+        return $"The trip with id number {id} was successfully deleted.";
+    }
+
+    public CyclingTrip EditCyclingTrip(int id, CyclingTrip updatedTrip)
+    {
+        CyclingTrip? tripData = _context.CyclingTrips.Find(id);
+
+        if (tripData is null)
         {
-            CyclingTrip? tripData = _context.CyclingTrips.Find(id);
-
-            if (tripData is null)
-            {
-                return null;
-            }
-
-            tripData.Id = updatedTrip.Id;
-            tripData.Date = updatedTrip.Date;
-            tripData.StartingLocation = updatedTrip.StartingLocation;
-            tripData.EndLocation = updatedTrip.EndLocation;
-            tripData.Distance = updatedTrip.Distance;
-            tripData.Duration = updatedTrip.Duration;
-            tripData.AltitudeMeters = updatedTrip.AltitudeMeters;
-
-            CalculateAverageSpeed(tripData);
-
-            _context.SaveChanges();
-
-            return tripData;
-
+            return null;
         }
 
-        public List<CyclingTrip> GetAllCyclingTrips()
-        {
-            return _context.CyclingTrips.ToList();
-        }
+        tripData.Id = updatedTrip.Id;
+        tripData.Date = updatedTrip.Date;
+        tripData.StartingLocation = updatedTrip.StartingLocation;
+        tripData.EndLocation = updatedTrip.EndLocation;
+        tripData.Distance = updatedTrip.Distance;
+        tripData.Duration = updatedTrip.Duration;
+        tripData.AltitudeMeters = updatedTrip.AltitudeMeters;
 
-        public CyclingTrip? GetCyclingTripById(int id)
-        {
-            var result = _context.CyclingTrips.Find(id);
-            if (result is null)
-            {
-                return null;
-            }
-            return result;
-        }
+        CalculateAverageSpeed(tripData);
 
-        private void CalculateAverageSpeed(CyclingTrip trip)
+        _context.SaveChanges();
+
+        return tripData;
+
+    }
+
+    public List<CyclingTrip> GetAllCyclingTrips()
+    {
+        return _context.CyclingTrips.ToList();
+    }
+
+    public CyclingTrip? GetCyclingTripById(int id)
+    {
+        var result = _context.CyclingTrips.Find(id);
+        if (result is null)
         {
-            if (trip.Duration.TotalHours > 0 && trip.Distance > 0)
-            {
-                trip.AverageSpeed = Math.Round(trip.Distance / trip.Duration.TotalHours,1);
-            }
-            else
-            {
-                trip.AverageSpeed = 0;
-            }
+            return null;
+        }
+        return result;
+    }
+
+    private void CalculateAverageSpeed(CyclingTrip trip)
+    {
+        if (trip.Duration.TotalHours > 0 && trip.Distance > 0)
+        {
+            trip.AverageSpeed = Math.Round(trip.Distance / trip.Duration.TotalHours,1);
+        }
+        else
+        {
+            trip.AverageSpeed = 0;
         }
     }
 }

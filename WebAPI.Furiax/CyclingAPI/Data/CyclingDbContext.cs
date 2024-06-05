@@ -1,14 +1,13 @@
 ﻿using CyclingAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CyclingAPI.Data
+namespace CyclingAPI.Data;
+
+public class CyclingDbContext : DbContext
 {
-    public class CyclingDbContext : DbContext
+    public CyclingDbContext(DbContextOptions options) : base(options) 
     {
-        public CyclingDbContext(DbContextOptions options) : base(options) 
-        {
-        }
-        public DbSet<CyclingTrip> CyclingTrips { get; set; }
     }
-    
+    public DbSet<CyclingTrip> CyclingTrips { get; set; }
 }
+

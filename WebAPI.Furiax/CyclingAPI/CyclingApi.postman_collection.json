@@ -1,0 +1,131 @@
+{
+	"info": {
+		"_postman_id": "3c7172e7-b92b-4f8c-a8de-98dd560078df",
+		"name": "CyclingApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30512335"
+	},
+	"item": [
+		{
+			"name": "GetAllTrips",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7012/api/Cycling",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7012",
+					"path": [
+						"api",
+						"Cycling"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateTrip",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"date\": \"2024-06-04T09:30:00\",\r\n  \"startingLocation\": \"PointB\",\r\n  \"endLocation\": \"PointA\",\r\n  \"distance\": 65.3,\r\n  \"duration\": \"02:56:00\",\r\n  \"altitudeMeters\": 200\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7012/api/Cycling",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7012",
+					"path": [
+						"api",
+						"Cycling"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetTripById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7012/api/Cycling/2",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7012",
+					"path": [
+						"api",
+						"Cycling",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EditTrip",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 2,\r\n  \"date\": \"2024-06-04T09:30:00\",\r\n  \"startingLocation\": \"PointB\",\r\n  \"endLocation\": \"PointA\",\r\n  \"distance\": 70.0,\r\n  \"duration\": \"02:56:00\",\r\n  \"altitudeMeters\": 250\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7012/api/Cycling/2",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7012",
+					"path": [
+						"api",
+						"Cycling",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteTrip",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7012/api/Cycling/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7012",
+					"path": [
+						"api",
+						"Cycling",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

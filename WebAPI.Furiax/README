@@ -1,0 +1,75 @@
+CyclingAPI
+----------
+
+This API is written for an assignment from the VIPMembership Area at www.thecsharpacademy.com 
+
+The assignement:
+----------------
+Create a simple web API of choice that makes use of all CRUD commands and test the API upon completion with Postman.
+
+I've chosen to create an API that stores data from a cycling trip, because I frequently take my bike for a spin.
+
+Project Creation Process:
+-------------------------
+These are the steps that I took to create the web API:
+- First I created the web API in VS2022 and removed all unneccessary code.
+- Then I installed all needed NuGet Packages like EntityFrameWorkCore.Design, EntityFrameWorkCore.Tools and EntityFrameWorkCore.SQLite. 
+  I've chosen SQLite since the storage of our trips isn't heavy and in this case SQLite should suffice.
+- I added the builder.Services.AddControllers() and app.MapControllers() to Program.cs since we are going to make use of a controller.
+- Next I created a context file, set up the path to the database by creating a connectionstring in appsettings.json and registered the context to Program.cs.
+- Then I created a model for our CyclingTrip so I could add the DbSet to the context file.
+- Now all this is setup, it's time to create our database by running the add-migration and update-database commands in Package Manager Console.
+  Along the way I had to make some more migrations due to fixing some typ errors or realizing that it would make more sense that Distance should be a double instead of an int value.
+- I created an interface for service with the basic CRUD commands, then I created a new service class and implemented the interface service in it.
+- At this point I decided to not let the user provide the average speed but to let the program calculate it based on the distance and duration.
+ This way the value is always correct and it gives something extra to my project. So I created the CalculateAverageSpeed method in the service class.
+ I added a light version of validation into the method so that when duration would be equal to 0 or the distance would be 0 or negative, average speed should be set to 0. 
+ This way I tried to prevent negative and faulty values.
+- Ofcourse we had to register the service interface and service class to the Program.cs by using an AddScoped
+- Then we came to the last part of our API and that was creating the controller page which holds all the CRUD requests.
+  If succesfull they return a Ok Status code together with the requested data or a NotFound Status when the record doesn't exist.
+
+Now my API was completed, it was time to test it out with Postman.
+
+PostMan:
+--------
+I created a new Collection for my API in Postman.
+Inside this Collection I created 5 requests for each CRUD method:
+  - GET GetAllTrips: this one sends a GET request to https://localhost:7012/api/Cycling aquiring a list of all cycling trips.
+  - GET GetTripById: this one sends a GET request to https://localhost:7012/api/Cycling/1 where 1 is the id of the record. This displays the record with id 1.
+  - POST CreateTrip: here we called https://localhost:7012/api/Cycling with a Body Raw JSON that contains our record data.
+        For example:
+        {
+            "date": "2024-06-05T05:30:00",
+            "startingLocation": "Home",
+            "endLocation": "Work",
+            "distance": 10,
+            "duration": "00:30:00",
+            "altitudeMeters": 15
+        }
+        In the return value we see that the "averageSpeed" field is automatically calculated by our method and holds 20 as value in this example.
+- PUT EditTrip: this one calls https://localhost:7012/api/Cycling/1 where 1 is the id of the record.
+    With this Body Raw JSON data:
+      {
+          "id": 1,
+          "date": "2024-06-04T09:30:00",
+          "startingLocation": "PointB",
+          "endLocation": "PointA",
+          "distance": 70.0,
+          "duration": "02:56:00",
+          "altitudeMeters": 250
+      }
+- DEL DeleteTrip: this one calls https://localhost:7012/api/Cycling/2 where 2 stands for the id of the record.
+  it returns a string saying the record was successfully deleted upon successfull completion.
+
+Seems like everything works like a charm from first try :)
+
+HOW TO USE:
+-----------
+
+This API holds 5 requests:
+  GET request that returns a list of all records in the database
+  GET {id} request that returns the record which match the id or returns a NotFound if the record doesn't exists
+  POST request, you need to provide data for the following fields: "date", "startingLocation", "endLocation", "distance", "duration" and "altitudeMeters". The API will automatically add a value for "Id" and calculate the value for "averageSpeed" so these fields should NOT be filled in.
+  PUT{id} request, here you need to provide a valid record id and an update of the following fields: "date", "startingLocation", "endLocation", "distance", "duration" and "altitudeMeters". Here too the "averageSpeed" will be calculated and automatically assigned so no need to change its value.
+  DELETE(id} request: this one deletes the record that matches the id and returns a string with a success message or returns a NotFound when the record doesn't exists.
